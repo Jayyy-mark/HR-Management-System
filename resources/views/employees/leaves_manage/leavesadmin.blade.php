@@ -20,173 +20,134 @@
     <div class="page-wrapper">
         <!-- Page Content -->
         <div class="content container-fluid">
-            <!-- Page Header -->
-            <div class="page-header">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <h3 class="page-title">Leaves <span id="year"></span></h3>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Leaves</li>
-                        </ul>
-                    </div>
-                    <div class="col-auto float-right ml-auto">
-                        <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_leave"><i class="fa fa-plus"></i> Add Leave</a>
-                    </div>
-                </div>
+            <!-- Page Title with Count Badge (Screenshot 1) -->
+            <div class="page-title-badge-wrapper">
+                <h2><i class="la la-calendar-check-o text-primary mr-1"></i> Leaves Management</h2>
+                <span class="page-title-count-pill">{{ count($getLeave ?? []) }}</span>
             </div>
+
             <!-- Leave Statistics -->
             <div class="row">
                 <div class="col-md-3">
                     <div class="stats-info">
                         <h6>Today Presents</h6>
-                        <h4>12 / 60</h4>
+                        <h4>12 / 12</h4>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="stats-info">
                         <h6>Planned Leaves</h6>
-                        <h4>8 <span>Today</span></h4>
+                        <h4>6 <span>Approved</span></h4>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="stats-info">
                         <h6>Unplanned Leaves</h6>
-                        <h4>0 <span>Today</span></h4>
+                        <h4>1 <span>Medical</span></h4>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="stats-info">
                         <h6>Pending Requests</h6>
-                        <h4>12</h4>
+                        <h4>3 <span>Pending</span></h4>
                     </div>
                 </div>
             </div>
             <!-- /Leave Statistics -->
-
-            <!-- Search Filter -->
-            <div class="row filter-row">
-                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
-                    <div class="form-group form-focus">
-                        <input type="text" class="form-control floating">
-                        <label class="focus-label">Employee Name</label>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
-                    <div class="form-group form-focus select-focus">
-                        <select class="select floating"> 
-                            <option> -- Select -- </option>
-                            <option>Casual Leave</option>
-                            <option>Medical Leave</option>
-                            <option>Loss of Pay</option>
-                        </select>
-                        <label class="focus-label">Leave Type</label>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12"> 
-                    <div class="form-group form-focus select-focus">
-                        <select class="select floating"> 
-                            <option> -- Select -- </option>
-                            <option> Pending </option>
-                            <option> Approved </option>
-                            <option> Rejected </option>
-                        </select>
-                        <label class="focus-label">Leave Status</label>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
-                    <div class="form-group form-focus">
-                        <div class="cal-icon">
-                            <input class="form-control floating datetimepicker" type="text">
-                        </div>
-                        <label class="focus-label">From</label>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
-                    <div class="form-group form-focus">
-                        <div class="cal-icon">
-                            <input class="form-control floating datetimepicker" type="text">
-                        </div>
-                        <label class="focus-label">To</label>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
-                    <a href="#" class="btn btn-success btn-block"> Search </a>  
-                </div>     
-            </div>
-            <!-- /Search Filter -->
-
-			<!-- /Page Header -->
               
             <div class="row">
                 <div class="col-md-12">
-                    <div class="table-responsive">
-                        <table class="table table-striped custom-table mb-0 datatable">
-                            <thead>
-                                <tr>
-                                    <th>Employee</th>
-                                    <th>Leave Type</th>
-                                    <th>From</th>
-                                    <th>To</th>
-                                    <th>No of Days</th>
-                                    <th>Reason</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-right">Actions</th>
-                                </tr>
-                            </thead>
+                    <div class="datatable-card-container">
+                        <!-- Top Toolbar inside card (Screenshot 1) -->
+                        <div class="datatable-card-toolbar">
+                            <div class="datatable-search-box">
+                                <i class="fa fa-search search-icon"></i>
+                                <input type="text" placeholder="Search by Employee, Leave Type...">
+                                <button type="button" class="btn-datatable-search">Search</button>
+                            </div>
+                            
+                            <div class="datatable-btn-actions">
+                                <button type="button" class="btn-export-outline" title="Export as CSV">
+                                    <i class="fa fa-download"></i> Export
+                                </button>
+                                <button type="button" class="btn-filter-toggle" title="Filter Leaves">
+                                    <i class="fa fa-sliders"></i> Filter
+                                </button>
+                                <a href="#" class="btn-add-primary" data-toggle="modal" data-target="#add_leave">
+                                    <i class="fa fa-plus"></i> Add Leave
+                                </a>
+                            </div>
+                        </div>
 
-                            <tbody>
-                                @if(!empty($getLeave))
-                                    @foreach ($getLeave as $items )
-                                        @php // get photo from the table users
-                                            $profiles  = DB::table('users')->where('name', $items->employee_name)->get();
-                                        @endphp
-                                        <tr>
-                                            <td>
-                                                @foreach($profiles as $key => $profile)
-                                                    <h2 class="table-avatar">
-                                                        <a href="#" class="avatar">
-                                                            <img src="{{ URL::to('/assets/images/'.$profile->avatar) }}" alt="">
+                        <div class="table-responsive">
+                            <table class="table custom-table mb-0 datatable">
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Leave Type</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>No of Days</th>
+                                        <th>Reason</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-right" style="width: 100px;">Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @if(!empty($getLeave))
+                                        @foreach ($getLeave as $items )
+                                            @php // get photo from the table users
+                                                $profiles  = DB::table('users')->where('name', $items->employee_name)->get();
+                                            @endphp
+                                            <tr>
+                                                <td>
+                                                    @foreach($profiles as $key => $profile)
+                                                        <h2 class="table-avatar">
+                                                            <a href="#" class="avatar">
+                                                                <img src="{{ URL::to('/assets/images/'.$profile->avatar) }}" alt="">
+                                                            </a>
+                                                            <a href="#">{{ $items->employee_name }}<span>{{ $profile->position }}</span></a>
+                                                        </h2>
+                                                    @endforeach
+                                                </td>
+                                                <td hidden class="id">{{ $items->id }}</td>
+                                                <td class="leave_type">{{$items->leave_type}}</td>
+                                                <td hidden class="from_date">{{ $items->from_date }}</td>
+                                                <td>{{ date('d M, Y', strtotime($items->from_date)) }}</td>
+                                                <td hidden class="to_date">{{$items->to_date}}</td>
+                                                <td>{{ date('d M, Y', strtotime($items->to_date)) }}</td>
+                                                <td class="no_of_day">{{$items->no_of_day}} Day</td>
+                                                <td class="leave_reason cell-truncate" title="{{ $items->reason }}">{{$items->reason}}</td>
+                                                <td class="text-center">
+                                                    <div class="dropdown action-label">
+                                                        <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                            <i class="fa fa-dot-circle-o text-purple"></i> New
                                                         </a>
-                                                        <a href="#">{{ $items->employee_name }}<span>{{ $profile->position }}</span></a>
-                                                    </h2>
-                                                @endforeach
-                                            </td>
-                                            <td hidden class="id">{{ $items->id }}</td>
-                                            <td class="leave_type">{{$items->leave_type}}</td>
-                                            <td hidden class="from_date">{{ $items->from_date }}</td>
-                                            <td>{{date('d F, Y',strtotime($items->from_date)) }}</td>
-                                            <td hidden class="to_date">{{$items->to_date}}</td>
-                                            <td>{{date('d F, Y',strtotime($items->to_date)) }}</td>
-                                            <td class="no_of_day">{{$items->no_of_day}} Day</td>
-                                            <td class="leave_reason">{{$items->reason}}</td>
-                                            <td class="text-center">
-                                                <div class="dropdown action-label">
-                                                    <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fa fa-dot-circle-o text-purple"></i> New
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a>
-                                                        <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#approve_leave"><i class="fa fa-dot-circle-o text-success"></i> Approved</a>
-                                                        <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a>
+                                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a>
+                                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#approve_leave"><i class="fa fa-dot-circle-o text-success"></i> Approved</a>
+                                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td class="text-right">
-                                                <div class="dropdown dropdown-action">
-                                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item leaveUpdate" data-toggle="modal" data-id="'.$items->id.'" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                        <a class="dropdown-item leaveDelete" href="#" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                </td>
+                                                <td class="text-right">
+                                                    <div class="table-action-square-group">
+                                                        <a href="#" class="btn-action-square btn-action-edit leaveUpdate" data-toggle="modal" data-id="{{ $items->id }}" data-target="#edit_leave" title="Edit Leave">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                        <a href="#" class="btn-action-square btn-action-delete leaveDelete" data-toggle="modal" data-target="#delete_approve" title="Delete Leave">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </a>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
-                            </tbody>
-                        </table>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

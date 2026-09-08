@@ -23,6 +23,8 @@
         <link rel="stylesheet" href="{{ URL::to('assets/css/bootstrap-datetimepicker.min.css') }}">
 		<!-- Main CSS -->
         <link rel="stylesheet" href="{{ URL::to('assets/css/style.css') }}">
+        <!-- HR Auth Pages CSS -->
+        <link rel="stylesheet" href="{{ URL::to('assets/css/hr-auth.css') }}">
     </head>
     <body class="account-page error-page">
         <style>    

@@ -6,6 +6,7 @@
         <meta name="description" content="Smarthr - Bootstrap Admin Template">
 		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
         <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+        <link rel="stylesheet" href="{{ URL::to('assets/css/modern-dashboard.css') }}">
         <meta name="robots" content="noindex, nofollow">
         <title>Jobs - HRMS admin dashboard</title>
 		<!-- Favicon -->
@@ -57,6 +58,7 @@
 		<script src="{{ URL::to('assets/js/jquery.validate.js') }}"></script>
 		<!-- Custom JS -->
 		<script src="{{ URL::to('assets/js/app.js') }}"></script>
+		@include('layouts.partials.datatables_enhance')
 		@yield('script')
     </body>
 </html>

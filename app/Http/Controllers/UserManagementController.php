@@ -22,7 +22,7 @@ class UserManagementController extends Controller
     /** Index page */
     public function index()
     {
-        if (Session::get('role_name') == 'Admin')
+        if (in_array(Session::get('role_name'), ['Admin', 'Super Admin']))
         {
             $result      = DB::table('users')->get();
             $role_name   = DB::table('role_type_users')->get();
@@ -313,12 +313,12 @@ class UserManagementController extends Controller
 
             DB::commit();
 
-            Toastr::success('Created new account successfully!', 'Success');
+            flash()->success('Created new account successfully :)');
             return redirect()->route('userManagement');
         } catch (\Exception $e) {
             DB::rollback();
             \Log::error('Failed to create new account', ['error' => $e->getMessage()]);
-            Toastr::error('Failed to create new account. Please try again.', 'Error');
+            flash()->error('Failed to create new account. Please try again.');
             return redirect()->back()->withInput();
         }
     }

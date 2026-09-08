@@ -28,7 +28,7 @@ class ResetPasswordController extends Controller
         $resetRecord = DB::table('password_resets')->where('email', $request->email)->where('token', $request->token)->first();
 
         if (!$resetRecord) {
-            Toastr::error('Invalid token!', 'Error');
+            flash()->error('Invalid token!');
             return back();
         }
 

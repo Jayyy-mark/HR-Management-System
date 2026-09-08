@@ -21,17 +21,7 @@ class RegisterController extends Controller
     /** Store New User */
     public function storeUser(Request $request)
     {
-        try {
-           // Create an instance of the User model
-            $users = new User();
-            // Call the saveNewuser method
-            return $users->saveNewuser($request);
-            flash()->success('Account created successfully :)');
-            return redirect('login');
-        } catch (\Exception $e) {
-            \Log::error($e);
-            flash()->error('Failed to Create Account. Please try again.');
-            return redirect()->back();
-        }
+        // saveNewuser validates input, saves, flashes, and redirects
+        return (new User())->saveNewuser($request);
     }
 }

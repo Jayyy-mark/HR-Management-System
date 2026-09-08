@@ -4,145 +4,154 @@
     <div class="page-wrapper">		
         <!-- Page Content -->
         <div class="content container-fluid">
-            <!-- Page Header -->
-            <div class="page-header">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <h3 class="page-title">Jobs</h3>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Jobs</li>
-                        </ul>
-                    </div>
-                    <div class="col-auto float-right ml-auto">
-                        <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_job"><i class="fa fa-plus"></i> Add Job</a>
-                    </div>
-                </div>
+            <!-- Page Title with Count Badge (Screenshot 1) -->
+            <div class="page-title-badge-wrapper">
+                <h2><i class="la la-briefcase text-primary mr-1"></i> Manage Jobs</h2>
+                <span class="page-title-count-pill">{{ count($job_list) }}</span>
             </div>
-            <!-- /Page Header -->
               
             <div class="row">
                 <div class="col-md-12">
-                    <div class="table-responsive">
-                        <table class="table table-striped custom-table mb-0 datatable">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th>Job Title</th>
-                                    <th>Department</th>
-                                    <th>Start Date</th>
-                                    <th>Expire Date</th>
-                                    <th class="text-center">Job Type</th>
-                                    <th class="text-center">Status</th>
-                                    <th>Applicants</th>
-                                    <th class="text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($job_list as $key=>$items )                                
-                                <tr>
-                                    <td>{{ ++$key }}</td>
-                                    <td hidden class="id">{{ $items->id }}</td>
-                                    <td hidden class="job_title">{{ $items->job_title }}</td>
-                                    <td hidden class="job_location">{{ $items->job_location }}</td>
-                                    <td hidden class="no_of_vacancies">{{ $items->no_of_vacancies }}</td>
-                                    <td hidden class="experience">{{ $items->experience }}</td>
-                                    <td hidden class="salary_from">{{ $items->salary_from }}</td>
-                                    <td hidden class="salary_to">{{ $items->salary_to }}</td>
-                                    <td hidden class="job_type">{{ $items->job_type }}</td>
-                                    <td hidden class="status">{{ $items->status }}</td>
-                                    <td hidden class="start_date">{{ $items->start_date }}</td>
-                                    <td hidden class="expired_date">{{ $items->expired_date }}</td>
-                                    <td hidden class="description">{{ $items->description }}</td>
-                                    <td hidden class="age">{{ $items->age }}</td>
-                                    <td><a href="{{ url('job/details/'.$items->id) }}">{{ $items->job_title }}</a></td>
-                                    <td class="department">{{ $items->department }}</td>
-                                    <td>{{ date('d F, Y',strtotime($items->start_date)) }}</td>
-                                    <td>{{ date('d F, Y',strtotime($items->expired_date)) }}</td>
-                                    <td class="text-center">
-                                        <div class="dropdown action-label">
-                                            <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                @if($items->job_type == 'Full Time')
-                                                    <i class="fa fa-dot-circle-o text-info"></i> {{ $items->job_type }}
-                                                @elseif($items->job_type == 'Part Time')
-                                                    <i class="fa fa-dot-circle-o text-success"></i> {{ $items->job_type }}
-                                                @elseif($items->job_type == '')
-                                                    <i class="fa fa-dot-circle-o text-danger"></i> {{ $items->job_type }}
-                                                @elseif($items->job_type == 'Internship')
-                                                    <i class="fa fa-dot-circle-o text-danger"></i> {{ $items->job_type }}
-                                                @elseif($items->job_type == 'Temporary')
-                                                    <i class="fa fa-dot-circle-o text-warning"></i> {{ $items->job_type }}
-                                                @elseif($items->job_type == 'Remote')
-                                                    <i class="fa fa-dot-circle-o text-dark"></i> {{ $items->job_type }}
-                                                @elseif($items->job_type == 'Others')
-                                                    <i class="fa fa-dot-circle-o text-dark"></i> {{ $items->job_type }}
-                                                @endif
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right jobtype_status">
-                                                <a hidden id="id_update{{ $items->id }}" onclick="setTime({{ $items->id }})">{{ $items->id }}</a>
-                                                <a class="dropdown-item full_time{{ $items->id }}" id="status{{ $items->id }}" onclick="setTime({{ $items->id }})"><i class="fa fa-dot-circle-o text-info"></i> Full Time</a>
-                                                <a class="dropdown-item part_time{{ $items->id }}" id="status{{ $items->id }}" onclick="setTime({{ $items->id }})"><i class="fa fa-dot-circle-o text-success"></i> Part Time</a>
-                                                <a class="dropdown-item internship{{ $items->id }}" id="status{{ $items->id }}" onclick="setTime({{ $items->id }})"><i class="fa fa-dot-circle-o text-danger"></i> Internship<a>
-                                                <a class="dropdown-item temporary{{ $items->id }}" id="status{{ $items->id }}" onclick="setTime({{ $items->id }})"><i class="fa fa-dot-circle-o text-warning"></i> Temporary<a>
-                                                <a class="dropdown-item remote{{ $items->id }}" id="status{{ $items->id }}" onclick="setTime({{ $items->id }})"><i class="fa fa-dot-circle-o text-dark"></i> Remote</a>
-                                                <a class="dropdown-item others{{ $items->id }}" id="status{{ $items->id }}" onclick="setTime({{ $items->id }})"><i class="fa fa-dot-circle-o text-dark"></i> Others</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="dropdown action-label">
-                                            <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                @if($items->status == 'Open')
-                                                    <i class="fa fa-dot-circle-o text-info"></i> {{ $items->status }}
-                                                @elseif($items->status == 'Closed')
-                                                    <i class="fa fa-dot-circle-o text-success"></i> {{ $items->status }}
-                                                @elseif($items->status == 'Cancelled')
-                                                    <i class="fa fa-dot-circle-o text-danger"></i> {{ $items->status }}
-                                                @endif
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-info"></i> Open</a>
-                                                <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Closed</a>
-                                                <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> Cancelled</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    @php
-                                        $apply = DB::table('apply_for_jobs')->where('job_title',$items->job_title)->count();
-                                    @endphp
-                                    <td>
-                                        <a href="{{ url('job/applicants/'.$items->job_title) }}" class="btn btn-sm btn-primary">
-                                            {{ $apply }}
-                                            Candidates
-                                        </a>
-                                    </td>
-                                    
-                                    <td class="text-right">
-                                        <div class="dropdown dropdown-action">
-                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item edit_job" data-toggle="modal" data-target="#edit_job"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#delete_job"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                    <div class="datatable-card-container">
+                        <!-- Top Toolbar inside card (Screenshot 1) -->
+                        <div class="datatable-card-toolbar">
+                            <div class="datatable-search-box">
+                                <i class="fa fa-search search-icon"></i>
+                                <input type="text" placeholder="Search by Job Title, Dept...">
+                                <button type="button" class="btn-datatable-search">Search</button>
+                            </div>
+                            
+                            <div class="datatable-btn-actions">
+                                <button type="button" class="btn-export-outline" title="Export as CSV">
+                                    <i class="fa fa-download"></i> Export
+                                </button>
+                                <button type="button" class="btn-filter-toggle" title="Filter Jobs">
+                                    <i class="fa fa-sliders"></i> Filter
+                                </button>
+                                <a href="#" class="btn-add-primary" data-toggle="modal" data-target="#add_job">
+                                    <i class="fa fa-plus"></i> Add Job
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table custom-table mb-0 datatable">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th>Job Title</th>
+                                        <th>Department</th>
+                                        <th>Start Date</th>
+                                        <th>Expire Date</th>
+                                        <th class="text-center">Job Type</th>
+                                        <th class="text-center">Status</th>
+                                        <th>Applicants</th>
+                                        <th class="text-right" style="width: 120px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($job_list as $key=>$items )                                
+                                        <tr>
+                                            <td>{{ ++$key }}</td>
+                                            <td hidden class="id">{{ $items->id }}</td>
+                                            <td hidden class="job_title">{{ $items->job_title }}</td>
+                                            <td hidden class="department">{{ $items->department }}</td>
+                                            <td hidden class="job_location">{{ $items->job_location }}</td>
+                                            <td hidden class="no_of_vacancies">{{ $items->no_of_vacancies }}</td>
+                                            <td hidden class="experience">{{ $items->experience }}</td>
+                                            <td hidden class="salary_from">{{ $items->salary_from }}</td>
+                                            <td hidden class="salary_to">{{ $items->salary_to }}</td>
+                                            <td hidden class="job_type">{{ $items->job_type }}</td>
+                                            <td hidden class="status">{{ $items->status }}</td>
+                                            <td hidden class="start_date">{{ $items->start_date }}</td>
+                                            <td hidden class="expired_date">{{ $items->expired_date }}</td>
+                                            <td hidden class="description">{{ $items->description }}</td>
+                                            <td hidden class="age">{{ $items->age }}</td>
+                                            <td><a href="{{ url('job/details/'.$items->id) }}" class="font-weight-bold">{{ $items->job_title }}</a></td>
+                                            <td class="department">{{ $items->department }}</td>
+                                            <td>{{ date('d M, Y', strtotime($items->start_date)) }}</td>
+                                            <td>{{ date('d M, Y', strtotime($items->expired_date)) }}</td>
+                                            <td class="text-center">
+                                                <div class="dropdown action-label">
+                                                    <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                        @if($items->job_type == 'Full Time')
+                                                            <i class="fa fa-dot-circle-o text-info"></i> {{ $items->job_type }}
+                                                        @elseif($items->job_type == 'Part Time')
+                                                            <i class="fa fa-dot-circle-o text-success"></i> {{ $items->job_type }}
+                                                        @elseif($items->job_type == '')
+                                                            <i class="fa fa-dot-circle-o text-danger"></i> {{ $items->job_type }}
+                                                        @elseif($items->job_type == 'Internship')
+                                                            <i class="fa fa-dot-circle-o text-danger"></i> {{ $items->job_type }}
+                                                        @elseif($items->job_type == 'Temporary')
+                                                            <i class="fa fa-dot-circle-o text-warning"></i> {{ $items->job_type }}
+                                                        @elseif($items->job_type == 'Remote')
+                                                            <i class="fa fa-dot-circle-o text-dark"></i> {{ $items->job_type }}
+                                                        @elseif($items->job_type == 'Others')
+                                                            <i class="fa fa-dot-circle-o text-dark"></i> {{ $items->job_type }}
+                                                        @endif
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right jobtype_status">
+                                                        <a hidden id="id_update{{ $items->id }}" onclick="setTime({{ $items->id }})">{{ $items->id }}</a>
+                                                        <a class="dropdown-item full_time{{ $items->id }}" id="status{{ $items->id }}" onclick="setTime({{ $items->id }})"><i class="fa fa-dot-circle-o text-info"></i> Full Time</a>
+                                                        <a class="dropdown-item part_time{{ $items->id }}" id="status{{ $items->id }}" onclick="setTime({{ $items->id }})"><i class="fa fa-dot-circle-o text-success"></i> Part Time</a>
+                                                        <a class="dropdown-item internship{{ $items->id }}" id="status{{ $items->id }}" onclick="setTime({{ $items->id }})"><i class="fa fa-dot-circle-o text-danger"></i> Internship<a>
+                                                        <a class="dropdown-item temporary{{ $items->id }}" id="status{{ $items->id }}" onclick="setTime({{ $items->id }})"><i class="fa fa-dot-circle-o text-warning"></i> Temporary<a>
+                                                        <a class="dropdown-item remote{{ $items->id }}" id="status{{ $items->id }}" onclick="setTime({{ $items->id }})"><i class="fa fa-dot-circle-o text-dark"></i> Remote</a>
+                                                        <a class="dropdown-item others{{ $items->id }}" id="status{{ $items->id }}" onclick="setTime({{ $items->id }})"><i class="fa fa-dot-circle-o text-dark"></i> Others</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="dropdown action-label">
+                                                    <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                        @if($items->status == 'Open')
+                                                            <i class="fa fa-dot-circle-o text-info"></i> {{ $items->status }}
+                                                        @elseif($items->status == 'Closed')
+                                                            <i class="fa fa-dot-circle-o text-danger"></i> {{ $items->status }}
+                                                        @elseif($items->status == 'Cancelled')
+                                                            <i class="fa fa-dot-circle-o text-danger"></i> {{ $items->status }}
+                                                        @endif
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right status">
+                                                        <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-info"></i> Open</a>
+                                                        <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> Closed</a>
+                                                        <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Cancelled</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><a href="{{ url('job/applicants/'.$items->job_title) }}" class="btn btn-sm btn-primary">{{ $items->count }} Candidates</a></td>
+                                            
+                                            <td class="text-right">
+                                                <div class="table-action-square-group">
+                                                    <a href="{{ url('job/details/'.$items->id) }}" class="btn-action-square btn-action-view" title="View Details">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                    <a href="#" class="btn-action-square btn-action-edit edit_job" data-toggle="modal" data-target="#edit_job" title="Edit Job">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <a href="#" class="btn-action-square btn-action-delete" data-toggle="modal" data-target="#delete_job" title="Delete Job">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

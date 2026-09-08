@@ -1,0 +1,534 @@
+/* ==========================================================================
+   HRMS AUTH PAGES — 6amtech-style split screen layout
+   Left: branding panel with background photo + features
+   Right: clean white sign-in card
+   ========================================================================== */
+
+/* Neutralize legacy .account-page .error-page body styling */
+body.account-page.error-page {
+    display: block;
+    background-color: #ffffff;
+}
+
+body.account-page.error-page .main-wrapper {
+    display: none;
+}
+
+body.account-page.error-page .hr-auth-wrapper {
+    display: flex;
+}
+
+.hr-auth-wrapper {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* ---------- Left Branding Panel ---------- */
+.hr-auth-brand {
+    flex: 1 1 55%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    background-image: linear-gradient(160deg, rgba(18, 51, 110, 0.88) 0%, rgba(30, 109, 235, 0.82) 100%),
+                      url('../img/auth-bg.png');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+/* subtle diagonal texture accent */
+.hr-auth-brand::after {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0) 70%);
+    pointer-events: none;
+}
+
+.hr-brand-content {
+    position: relative;
+    z-index: 1;
+    max-width: 520px;
+    width: 100%;
+    color: #ffffff;
+}
+
+.hr-brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none !important;
+    margin-bottom: 44px;
+}
+
+.hr-brand-logo img {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    background: #ffffff;
+    padding: 4px;
+}
+
+.hr-brand-logo span {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+}
+
+.hr-brand-logo span small {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.hr-brand-headline h2 {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 14px 0;
+    line-height: 1.25;
+    color: #ffffff;
+}
+
+.hr-brand-headline p {
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0 0 36px 0;
+    max-width: 460px;
+}
+
+.hr-brand-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.hr-brand-features li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 14px;
+    backdrop-filter: blur(6px);
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.hr-brand-features li:hover {
+    background: rgba(255, 255, 255, 0.16);
+    transform: translateX(4px);
+}
+
+.hr-feature-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.22);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.hr-brand-features strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 2px;
+}
+
+.hr-brand-features small {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.hr-brand-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.hr-brand-footer .la {
+    font-size: 16px;
+}
+
+/* ---------- Right Form Panel ---------- */
+.hr-auth-form {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 32px;
+    background: #ffffff;
+    position: relative;
+}
+
+.hr-auth-card {
+    width: 100%;
+    max-width: 420px;
+}
+
+/* Mobile-only logo (hidden on desktop where left panel shows brand) */
+.hr-auth-mobile-logo {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.hr-auth-mobile-logo img {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+}
+
+.hr-auth-mobile-logo span {
+    font-size: 18px;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.hr-auth-header {
+    margin-bottom: 28px;
+}
+
+.hr-auth-header h1 {
+    font-size: 30px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 6px 0;
+    letter-spacing: -0.02em;
+}
+
+.hr-auth-header p {
+    font-size: 14.5px;
+    color: #64748b;
+    margin: 0;
+}
+
+/* ---------- Form Fields ---------- */
+.hr-field {
+    margin-bottom: 20px;
+}
+
+/* Compact variant for longer forms (register) */
+.hr-auth-form--compact .hr-field {
+    margin-bottom: 16px;
+}
+
+.hr-auth-form--compact .hr-auth-header {
+    margin-bottom: 22px;
+}
+
+.hr-field > label,
+.hr-label-row label {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 8px;
+}
+
+.hr-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0;
+}
+
+.hr-link {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e6deb !important;
+    text-decoration: none !important;
+}
+
+.hr-link:hover {
+    color: #1557c0 !important;
+    text-decoration: underline !important;
+}
+
+.hr-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.hr-input-icon {
+    position: absolute;
+    left: 14px;
+    font-size: 18px;
+    color: #94a3b8;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.hr-input {
+    width: 100%;
+    height: 50px;
+    padding: 0 14px 0 44px;
+    font-size: 14.5px;
+    color: #1e293b;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    font-family: inherit;
+}
+
+.hr-input::placeholder {
+    color: #a6b3c8;
+}
+
+.hr-input:focus {
+    background: #ffffff;
+    border-color: #1e6deb;
+    box-shadow: 0 0 0 4px rgba(30, 109, 235, 0.10);
+}
+
+.hr-input.is-invalid {
+    border-color: #ef4444;
+    background: #fef2f2;
+}
+
+.hr-input.is-invalid:focus {
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.10);
+}
+
+/* Password visibility toggle */
+.hr-toggle-password {
+    position: absolute;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: #94a3b8;
+    border-radius: 8px;
+    font-size: 18px;
+    transition: color 0.15s ease, background 0.15s ease;
+}
+
+.hr-toggle-password:hover {
+    color: #1e6deb;
+    background: #eff6ff;
+}
+
+/* Error text */
+.hr-error {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ef4444;
+    margin-top: 8px;
+}
+
+/* Select dropdown (register role picker) */
+.hr-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    padding-right: 40px;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 18px;
+}
+
+.hr-select:invalid {
+    color: #a6b3c8;
+}
+
+/* Register page needs more vertical room */
+.hr-auth-form .hr-auth-card--tall {
+    max-width: 440px;
+}
+
+/* ---------- Remember me checkbox ---------- */
+.hr-remember-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 4px 0 22px 0;
+}
+
+.hr-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    margin: 0;
+}
+
+.hr-checkbox input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hr-checkbox-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.hr-checkbox input:checked + .hr-checkbox-box {
+    background: #1e6deb;
+    border-color: #1e6deb;
+}
+
+.hr-checkbox input:checked + .hr-checkbox-box::after {
+    content: '';
+    width: 5px;
+    height: 9px;
+    border: solid #ffffff;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+    margin-top: -2px;
+}
+
+.hr-checkbox-text {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #475569;
+}
+
+/* ---------- Submit Button ---------- */
+.hr-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 50px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+    background: linear-gradient(90deg, #1e6deb 0%, #1757c9 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(30, 109, 235, 0.30);
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.hr-btn-primary:hover {
+    background: linear-gradient(90deg, #175ecf 0%, #124aa8 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(30, 109, 235, 0.40);
+}
+
+.hr-btn-primary:active {
+    transform: translateY(0);
+}
+
+.hr-btn-primary .la {
+    font-size: 16px;
+    transition: transform 0.2s ease;
+}
+
+.hr-btn-primary:hover .la {
+    transform: translateX(3px);
+}
+
+/* ---------- Footer ---------- */
+.hr-auth-footer {
+    text-align: center;
+    margin-top: 26px;
+}
+
+.hr-auth-footer p {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0;
+}
+
+.hr-auth-footer a {
+    color: #1e6deb !important;
+    font-weight: 700;
+    text-decoration: none !important;
+}
+
+.hr-auth-footer a:hover {
+    text-decoration: underline !important;
+}
+
+.hr-copyright {
+    margin-top: 40px;
+    font-size: 12.5px;
+    color: #94a3b8;
+    display: flex;
+    justify-content: center;
+}
+
+.hr-copyright .la {
+    font-size: 14px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 991px) {
+    .hr-auth-brand {
+        display: none;
+    }
+
+    .hr-auth-form {
+        flex: 1 1 100%;
+        min-height: 100vh;
+        padding: 32px 20px;
+    }
+
+    .hr-auth-mobile-logo {
+        display: flex;
+    }
+}
+
+@media (max-width: 480px) {
+    .hr-auth-card {
+        max-width: 100%;
+    }
+}

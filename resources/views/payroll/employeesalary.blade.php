@@ -8,146 +8,110 @@
     <div class="page-wrapper">
         <!-- Page Content -->
         <div class="content container-fluid">
-            <!-- Page Header -->
-            <div class="page-header">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <h3 class="page-title">Employee Salary <span id="year"></span></h3>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Salary</li>
-                        </ul>
-                    </div>
-                    <div class="col-auto float-right ml-auto">
-                        <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_salary"><i class="fa fa-plus"></i> Add Salary</a>
-                    </div>
-                </div>
+            <!-- Page Title with Count Badge (Screenshot 1) -->
+            <div class="page-title-badge-wrapper">
+                <h2><i class="la la-money text-primary mr-1"></i> Employee Salary</h2>
+                <span class="page-title-count-pill">{{ count($users ?? []) }}</span>
             </div>
 
-            <!-- Search Filter -->
-            <div class="row filter-row">
-                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
-                    <div class="form-group form-focus">
-                        <input type="text" class="form-control floating">
-                        <label class="focus-label">Employee Name</label>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
-                    <div class="form-group form-focus select-focus">
-                        <select class="select floating"> 
-                            <option value=""> -- Select -- </option>
-                            <option value="">Employee</option>
-                            <option value="1">Manager</option>
-                        </select>
-                        <label class="focus-label">Role</label>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12"> 
-                    <div class="form-group form-focus select-focus">
-                        <select class="select floating"> 
-                            <option> -- Select -- </option>
-                            <option> Pending </option>
-                            <option> Approved </option>
-                            <option> Rejected </option>
-                        </select>
-                        <label class="focus-label">Leave Status</label>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
-                    <div class="form-group form-focus">
-                        <div class="cal-icon">
-                            <input class="form-control floating datetimepicker" type="text">
-                        </div>
-                        <label class="focus-label">From</label>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
-                    <div class="form-group form-focus">
-                        <div class="cal-icon">
-                            <input class="form-control floating datetimepicker" type="text">
-                        </div>
-                        <label class="focus-label">To</label>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
-                    <a href="#" class="btn btn-success btn-block"> Search </a>  
-                </div>     
-            </div>
-            <!-- /Search Filter -->  
             <div class="row">
                 <div class="col-md-12">
-                    <div class="table-responsive">
-                        <table class="table table-striped custom-table datatable" style="width: 100%">
-                            <thead>
-                                <tr>
-                                    <th>Employee</th>
-                                    <th>Employee ID</th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th hidden></th>
-                                    <th>Email</th>
-                                    <th>Join Date</th>
-                                    <th>Role</th>
-                                    <th>Salary</th>
-                                    <th hidden></th>
-                                    <th>Payslip</th>
-                                    <th class="text-right">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($users as $items)
-                                <tr>
-                                    <td>
-                                        <h2 class="table-avatar">
-                                            <a href="{{ url('employee/profile/'.$items->user_id) }}" class="avatar"><img alt="" src="{{ URL::to('/assets/images/'. $items->avatar) }}"></a>
-                                            <a href="{{ url('employee/profile/'.$items->user_id) }}">{{ $items->name }}<span>{{ $items->position }}</span></a>
-                                        </h2>
-                                    </td>
-                                    <td>{{ $items->user_id }}</td>
-                                    <td hidden class="id">{{ $items->id }}</td>
-                                    <td hidden class="name">{{ $items->name }}</td>
-                                    <td hidden class="basic">{{ $items->basic }}</td>
-                                    <td hidden class="da">{{ $items->da }}</td>
-                                    <td hidden class="hra">{{ $items->hra }}</td>
-                                    <td hidden class="conveyance">{{ $items->conveyance }}</td>
-                                    <td hidden class="allowance">{{ $items->allowance }}</td>
-                                    <td hidden class="medical_allowance">{{ $items->medical_allowance }}</td>
-                                    <td hidden class="tds">{{ $items->tds }}</td>
-                                    <td hidden class="esi">{{ $items->esi }}</td>
-                                    <td hidden class="pf">{{ $items->pf }}</td>
-                                    <td hidden class="leave">{{ $items->leave }}</td>
-                                    <td hidden class="prof_tax">{{ $items->prof_tax }}</td>
-                                    <td hidden class="labour_welfare">{{ $items->labour_welfare }}</td>
-                                    <td>{{ $items->email }}</td>
-                                    <td>{{ $items->join_date }}</td>
-                                    <td>{{ $items->role_name }}</td>
-                                    <td>${{ $items->salary }}</td>
-                                    <td hidden class="salary">{{ $items->salary }}</td>
-                                    <td><a class="btn btn-sm btn-primary" href="{{ url('form/salary/view/'.$items->user_id) }}" target="_blank">Generate Slip</a></td>
-                                    <td class="text-right">
-                                        <div class="dropdown dropdown-action">
-                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item userSalary" href="#" data-toggle="modal" data-target="#edit_salary"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                <a class="dropdown-item salaryDelete" href="#" data-toggle="modal" data-target="#delete_salary"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                    <div class="datatable-card-container">
+                        <!-- Top Toolbar inside card (Screenshot 1) -->
+                        <div class="datatable-card-toolbar">
+                            <div class="datatable-search-box">
+                                <i class="fa fa-search search-icon"></i>
+                                <input type="text" placeholder="Search by Employee, Role, Salary...">
+                                <button type="button" class="btn-datatable-search">Search</button>
+                            </div>
+                            
+                            <div class="datatable-btn-actions">
+                                <button type="button" class="btn-export-outline" title="Export as CSV">
+                                    <i class="fa fa-download"></i> Export
+                                </button>
+                                <button type="button" class="btn-filter-toggle" title="Filter Salary">
+                                    <i class="fa fa-sliders"></i> Filter
+                                </button>
+                                <a href="#" class="btn-add-primary" data-toggle="modal" data-target="#add_salary">
+                                    <i class="fa fa-plus"></i> Add Salary
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table custom-table datatable" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Employee ID</th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th hidden></th>
+                                        <th>Email</th>
+                                        <th>Join Date</th>
+                                        <th>Role</th>
+                                        <th>Salary</th>
+                                        <th hidden></th>
+                                        <th>Payslip</th>
+                                        <th class="text-right" style="width: 100px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($users as $items)
+                                    <tr>
+                                        <td>
+                                            <h2 class="table-avatar">
+                                                <a href="{{ url('employee/profile/'.$items->user_id) }}" class="avatar"><img alt="" src="{{ URL::to('/assets/images/'. $items->avatar) }}"></a>
+                                                <a href="{{ url('employee/profile/'.$items->user_id) }}">{{ $items->name }}<span>{{ $items->position }}</span></a>
+                                            </h2>
+                                        </td>
+                                        <td>{{ $items->user_id }}</td>
+                                        <td hidden class="id">{{ $items->id }}</td>
+                                        <td hidden class="name">{{ $items->name }}</td>
+                                        <td hidden class="basic">{{ $items->basic }}</td>
+                                        <td hidden class="da">{{ $items->da }}</td>
+                                        <td hidden class="hra">{{ $items->hra }}</td>
+                                        <td hidden class="conveyance">{{ $items->conveyance }}</td>
+                                        <td hidden class="allowance">{{ $items->allowance }}</td>
+                                        <td hidden class="medical_allowance">{{ $items->medical_allowance }}</td>
+                                        <td hidden class="tds">{{ $items->tds }}</td>
+                                        <td hidden class="esi">{{ $items->esi }}</td>
+                                        <td hidden class="pf">{{ $items->pf }}</td>
+                                        <td hidden class="leave">{{ $items->leave }}</td>
+                                        <td hidden class="prof_tax">{{ $items->prof_tax }}</td>
+                                        <td hidden class="labour_welfare">{{ $items->labour_welfare }}</td>
+                                        <td>{{ $items->email }}</td>
+                                        <td>{{ $items->join_date }}</td>
+                                        <td>{{ $items->role_name }}</td>
+                                        <td>${{ $items->salary }}</td>
+                                        <td hidden class="salary">{{ $items->salary }}</td>
+                                        <td><a class="btn btn-sm btn-primary" href="{{ url('form/salary/view/'.$items->user_id) }}" target="_blank">Generate Slip</a></td>
+                                        <td class="text-right">
+                                            <div class="table-action-square-group">
+                                                <a href="#" class="btn-action-square btn-action-edit userSalary" data-toggle="modal" data-target="#edit_salary" title="Edit Salary">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a href="#" class="btn-action-square btn-action-delete salaryDelete" data-toggle="modal" data-target="#delete_salary" title="Delete Salary">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

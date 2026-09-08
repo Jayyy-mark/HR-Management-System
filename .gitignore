@@ -24,3 +24,9 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+screenshots
+gen-assets.php
+login-preview.html
+gen-bg.php
+test-login.php
+analyze-images.php
